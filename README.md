@@ -9,7 +9,7 @@
 Rakendus mis genereerib varasemate loosimiste põhjal Bingo, Vikingi ja Eurojackpoti pileti. Kirjutatud Pythonis.
 
 ## Sisukord
-- [Lühikirjeldus](#luhikirjeldus)
+- [Lühikirjeldus](#lühikirjeldus)
 - [Failistruktuur](#failistruktuur)
 - [Alfaversioon](#alfa)
 - [Beetaversioon](#beeta)
