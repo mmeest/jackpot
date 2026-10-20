@@ -25,13 +25,13 @@ Kasutame oma rakenduses seniõpitut, näieks massiivid, tsüklid, <br>
 tingimuslaused jne. Lisaks sellele on rakendusel kaks suuremat osa, <br>
 mis on siis jagatud vastavalt kahe projektikaaslase vahel.
 
-GUI - ülimalt äge ja kaasatõmbav kasutajaliides.
+**GUI** - ülimalt äge ja kaasatõmbav kasutajaliides.
 Kasutajaliides kuvab numbrid vastavalt loto standardile:
 Bingo - 5 x 5 ruudustik
 Viking - 6 põhinumbrit ja 1 lisanumber
 Eurojackpot - 5 põhinumbrit ja 2 lisanumbrit
 
-Scraper - varasemate loosimistulemuste hankimine vastavalt ette antud numbrile
+**Scraper** - varasemate loosimistulemuste hankimine vastavalt ette antud numbrile
 kui mitu loosimist hangitakse.
 
 ## Failistruktuur
