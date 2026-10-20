@@ -17,12 +17,13 @@ Rakendus mis genereerib varasemate loosimiste põhjal Bingo, Vikingi ja Eurojack
 
 ## Lühikirjeldus
 
-Antud rakendus loeb Eesti Loto lehelt ette antud loodimiste arvu lotonumbreid 
-(Bingo, Viking ja Eurojackpot) ning genereerib enim levinud numbrite põhjal uued loosimisnumbrid.
+Antud rakendus loeb Eesti Loto lehelt ette antud loodimiste arvu <br>
+lotonumbreid (Bingo, Viking ja Eurojackpot) ning genereerib enim <br>
+levinud numbrite põhjal uued loosimisnumbrid.
 
-Kasutame oma rakenduses seniõpitut, näieks massiivid, tsüklid, tingimuslaused jne.
-Lisaks sellele on rakendusel kaks suuremat osa, mis on siis jagatud vastavalt kahe
-projektikaaslase vahel.
+Kasutame oma rakenduses seniõpitut, näieks massiivid, tsüklid, <br>
+tingimuslaused jne. Lisaks sellele on rakendusel kaks suuremat osa, <br>
+mis on siis jagatud vastavalt kahe projektikaaslase vahel.
 
 GUI - ülimalt äge ja kaasatõmbav kasutajaliides.
 Kasutajaliides kuvab numbrid vastavalt loto standardile:
