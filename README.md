@@ -12,6 +12,7 @@ Rakendus mis genereerib varasemate loosimiste põhjal Bingo, Vikingi ja Eurojack
 - [Lühikirjeldus](#lühikirjeldus)
 - [Failistruktuur](#failistruktuur)
 - [Tehnoloogiad](#tehnoloogiad)
+- [Beautiful Soup](#beaufityful-soup)
 - [Alfaversioon](#alfa)
 - [Beetaversioon](#beeta)
 - [Võimalik edasiarendus](#võimalik-edasiarendus)
@@ -43,11 +44,11 @@ kui mitu loosimist hangitakse.
 
 | Fail | kirjeldus |
 |-|-|
-| gui.py | Kasutajaliides andmete sisestamiseks/väljastamiseks |
+| jp_gui.py | Kasutajaliides andmete sisestamiseks/väljastamiseks |
 | main.py | Põhiprogramm |
-| scraper.py | Eesti Loto lehelt varasemate loosimiste hankimiseks |
-| generator.py | Genereerib loto piletite numbrid |
-| random.py | Juhusliku pileti genereerimiseks |
+| jp_scraper.py | Eesti Loto lehelt varasemate loosimiste hankimiseks |
+| jp_generator.py | Genereerib loto piletite numbrid |
+| jp_random.py | Juhusliku pileti genereerimiseks |
 | /pic | Kataloog projektis kasutatavate piltide jaoks |
 
 ## Tehnoloogiad
@@ -58,7 +59,7 @@ on töölauarakendus(desktop app).
 Versioonihaldusena kasutusel Git ja github.
 Repo: https://github.com/mmeest/jackpot
 
-Scraperi ja GUi teegid/tööriistad projektile hetkel veel kinnitamata.
+Scraperi tarvis on valitud Beautiful Soup. GUi teegid/tööriistad projektile hetkel veel kinnitamata.
 
 Scraperi võimalikud tööriistad:
 * Beautiful Soup - https://beautiful-soup-4.readthedocs.io/en/latest/
@@ -70,6 +71,18 @@ GUI võimalikud tööriistad:
 * Custom Tkinter - https://customtkinter.tomschimansky.com/  https://github.com/TomSchimansky/CustomTkinter
 * Tkinter - https://docs.python.org/3/library/tkinter.html
 * PySide6 - https://pypi.org/project/PySide6/
+
+## Beautiful Soup
+
+Thonnyle tuleb paigaldada tööriistad (Tools > Manage packages):
+
+* beautifulsoup4
+* requests
+
+Kasutatud materjalid:
+
+* Youtube Beautiful Soup 4 Tutorial #2 - Searching and Filtering https://www.youtube.com/watch?v=lOzyQgv71_4
+* Beautiful Soup Documentation: https://beautiful-soup-4.readthedocs.io/en/latest/
 
 ## Alfa
 
