@@ -13,6 +13,7 @@ Rakendus mis genereerib varasemate loosimiste põhjal Bingo, Vikingi ja Eurojack
 - [Failistruktuur](#failistruktuur)
 - [Tehnoloogiad](#tehnoloogiad)
 - [Beautiful Soup](#beautiful-soup)
+- [CustomTkinter](customtkinter)
 - [Alfaversioon](#alfa)
 - [Beetaversioon](#beeta)
 - [Võimalik edasiarendus](#võimalik-edasiarendus)
@@ -67,6 +68,8 @@ Scraperi võimalikud tööriistad:
 * Playwright - https://playwright.dev/
 * Requests - https://pypi.org/project/requests/
 
+GUI tarvis sai valitud Custom Tkinter
+
 GUI võimalikud tööriistad:
 * Custom Tkinter - https://customtkinter.tomschimansky.com/  https://github.com/TomSchimansky/CustomTkinter
 * Tkinter - https://docs.python.org/3/library/tkinter.html
@@ -79,10 +82,34 @@ Thonnyle tuleb paigaldada tööriistad (Tools > Manage packages):
 * beautifulsoup4
 * requests
 
+Ning need importida
+
+```
+from bs4 import BeutyfulSoup
+import requests
+import json   # päringu vastuste tarvis
+```
+
 Kasutatud materjalid:
 
 * Youtube Beautiful Soup 4 Tutorial #2 - Searching and Filtering https://www.youtube.com/watch?v=lOzyQgv71_4
 * Beautiful Soup Documentation: https://beautiful-soup-4.readthedocs.io/en/latest/
+
+## CustomTkinter
+
+Thonnyle tuleb paigaldada tööriist customtkinter (Tools > Manage packages)
+Ning seejärel see rakendusse importida
+
+```
+import customtkinter as ctk
+```
+
+Kasutatud materjalid:
+
+* Tkinter ametlik lehekülg: https://customtkinter.tomschimansky.com/
+* Youtube - All Customtkinter Widgets Explained FAST [Modern GUI Python Library] https://www.youtube.com/watch?v=lCmHnrX6ZHU
+* Youtube - How to Create a Window in CustomTkinter - Python GUI with CustomTkinter https://www.youtube.com/watch?v=Q7_Ts5fa-Vg
+* CustomTkinter - A Complete Tutorial https://dev.to/devasservice/customtkinter-a-complete-tutorial-4527
 
 ## Alfa
 
