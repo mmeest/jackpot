@@ -110,6 +110,8 @@ Kasutatud materjalid:
 * Youtube - All Customtkinter Widgets Explained FAST [Modern GUI Python Library] https://www.youtube.com/watch?v=lCmHnrX6ZHU
 * Youtube - How to Create a Window in CustomTkinter - Python GUI with CustomTkinter https://www.youtube.com/watch?v=Q7_Ts5fa-Vg
 * CustomTkinter - A Complete Tutorial https://dev.to/devasservice/customtkinter-a-complete-tutorial-4527
+* Modern Tkinter Design With CustomTkinter - video õpetusseeria Youtubes - https://www.youtube.com/watch?v=Y01r643ckfI&list=PLfZw_tZWahjxJl81b1S-vYQwHs_9ZT77f
+* Tkinter Designer - veebipõhine tkinter api kujundamine - https://visualtkinter.com/designer?target=ctk
 
 ## Alfa
 
