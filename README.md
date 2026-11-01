@@ -63,7 +63,7 @@ kui mitu loosimist hangitakse.
 | Enimlevinud numbrite põhjal uute lotonumbrite loomine | Listid käiakse tsükliga läbi | ✓ |
 | Kasutajaliidese loomine | Kasutusel Tkinter ja Custom Tkinter | ✓ |
 | Vikingloto piletite loomine | Alfa versiooni nõue | ✓ |
-| Eurojackpoti ja Vikingi piletite loomine | Beeta versiooni nõue | ✓ |
+| Eurojackpoti ja Bingo piletite loomine | Beeta versiooni nõue | ❌ |
 | Juhusliku lotokombinatsiooni loomine | Kasutades Math.Random | ❌ |
 | Loodud numbrite võrdlemine viimase loosimisega | Õigete numbrite taust muutub roheliseks | ❌ |
 | Kõigi lotonumbrite genereerimisel salvestatakse need ka CSV faili | Faili kirjutamise harjutamiseks | ❌ |
