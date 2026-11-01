@@ -11,6 +11,7 @@ Rakendus mis genereerib varasemate loosimiste põhjal Bingo, Vikingi ja Eurojack
 ## Sisukord
 - [Lühikirjeldus](#lühikirjeldus)
 - [Failistruktuur](#failistruktuur)
+- [Funktsionaalsus](#funktsionaalsus)
 - [Tehnoloogiad](#tehnoloogiad)
 - [Beautiful Soup](#beautiful-soup)
 - [CustomTkinter](customtkinter)
@@ -52,6 +53,20 @@ kui mitu loosimist hangitakse.
 | jp_generator.py | Genereerib loto piletite numbrid |
 | jp_random.py | Juhusliku pileti genereerimiseks |
 | /pic | Kataloog projektis kasutatavate piltide jaoks |
+
+## Funktsionaalsus
+
+| Funktsioon | Kirjeldus | Lisatud |
+| - | - | - |
+| Lotonumbrite scrapimine Eesti Loto lehelt | Selleks kasutusel Beutyful Soap | ✓ |
+| Lotonumbrite talletamine | Kogutud numbrid talletatakse listidesse | ✓ |
+| Enimlevinud numbrite põhjal uute lotonumbrite loomine | Listid käiakse tsükliga läbi | ✓ |
+| Kasutajaliidese loomine | Kasutusel Tkinter ja Custom Tkinter | ✓ |
+| Vikingloto piletite loomine | Alfa versiooni nõue | ✓ |
+| Eurojackpoti ja Vikingi piletite loomine | Beeta versiooni nõue | ✓ |
+| Juhusliku lotokombinatsiooni loomine | Kasutades Math.Random | ❌ |
+| Loodud numbrite võrdlemine viimase loosimisega | Õigete numbrite taust muutub roheliseks | ❌ |
+| Kõigi lotonumbrite genereerimisel salvestatakse need ka CSV faili | Faili kirjutamise harjutamiseks | ❌ |
 
 ## Tehnoloogiad
 
