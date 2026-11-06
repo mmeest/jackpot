@@ -31,7 +31,7 @@ tingimuslaused jne. Lisaks sellele on rakendusel kaks suuremat osa, <br>
 mis on siis jagatud vastavalt kahe projektikaaslase vahel.
 
 Autorid(progejad):
-* ~~Oliver Eesmäe~~
+* Elis Maarja Aardevälja
 * Martin Maasik
 
 **GUI** - ülimalt äge ja kaasatõmbav kasutajaliides.
