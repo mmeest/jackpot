@@ -64,9 +64,9 @@ kui mitu loosimist hangitakse.
 | Kasutajaliidese loomine | Kasutusel Tkinter ja Custom Tkinter | ✓ |
 | Vikingloto piletite loomine | Alfa versiooni nõue | ✓ |
 | Eurojackpoti ja Bingo piletite loomine | Beeta versiooni nõue | ❌ |
-| Juhusliku lotokombinatsiooni loomine | Kasutades Math.Random | ❌ |
+| Juhusliku lotokombinatsiooni loomine | Kasutades Math.Random | ✓ |
 | Loodud numbrite võrdlemine viimase loosimisega | Õigete numbrite taust muutub roheliseks | ❌ |
-| Kõigi lotonumbrite genereerimisel salvestatakse need ka CSV faili | Faili kirjutamise harjutamiseks | ❌ |
+| Kõigi lotonumbrite genereerimisel salvestatakse need ka CSV faili | Faili kirjutamise harjutamiseks | ✓ |
 
 ## Tehnoloogiad
 
@@ -175,3 +175,9 @@ Beeta versioon on täiendatud ka Bingo ja Eurojackpot loteriidega.
 * Kui kasutajaliides oli ses suhtes valmis, et kõik soovitud elemendid paigas, tuli välja, et tekstiväljad on liiga väikesed ja kahekohalised numbrid ei mahu neile korralikult ära
 * Katse-eksitus meetodi asemel elementide mõõtmete muutmise asemel valisin lahenduseks mõõtmete korrutajate lisamise lahenduse, kus väga lihtsalt saab rakenduse akna kõigi elementide mõõte muuta. Sarnast lahendust sai kunagi ühe teise keskkonna suhtes kasutatud, et mugavalt elementide mõõte muuta
 * Kui UI oli valmis, siis hakkas kõige põnevam osa, ehk rakenduse kasutajaliidese ja taustakoodi ühendamine
+* Projekti lisati Elis Maarja Aardevlja
+* Pärast koodiga tutvumist tehti kiired parandused (kirjavead, errorite vältimine)
+* Lisati juurde võimalus näha varasemate piletite statistikat vastavalt kasutaja sisendile ehk programm kuvab, kui mitu korda 10 kõige tihedamini ilmunud numbrit kasutaja antud kordadele vastavalt on loositud
+* Lisati kood, et genereeritud tulemused lisataks CSV faili (vajadusel luuakse fail), kus on välja toodud täpne kellaaeg ja kuupäev, pileti liik ja loositud numbrid tabelina
+* Piirati loosimiste arv, et programm liiga mahukaks ei läheks
+* Aktiveeriti järgmine nupp, mis genereerib Vikingu piletile suvalised arvud
