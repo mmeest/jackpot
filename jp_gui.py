@@ -4,6 +4,10 @@ import tkinter as tk
 # Pillow:  pip install pillow - piltide kasutamiseks
 from PIL import Image
 from jp_generator import *
+from jp_random import juhusliku_loterii_generaator
+from tkinter import messagebox
+from jp_salvesta import *
+from jp_statistika import *
 
 """ konstandid """
 THEME_BG = "#163d6d"
@@ -19,6 +23,7 @@ THEME_FONT_FAMILY = "Helvetica"
 THEME_FONT_SIZE = 12 
 X = 1.4		# <--- muutuja rakenduse laiuse muutmiseks
 Y = 1.4		# <--- muutuja rakenduse kõrguse muutmiseks
+MAX_LOOSIMISI = 50		# <--- suurim lubatud loosimiste arv
 
 NUPU_KUJUNDUS = {
     "fg_color": THEME_ACCENT,
@@ -70,15 +75,19 @@ class Application:
         self.label8 = ctk.CTkLabel(root, text="Lotonumbrid eelnevate looside põhjal", text_color="#faf76b", font=ctk.CTkFont(family="Helvetica", size=8), width=X*135, height=Y*20)
         self.label8.place(x=X*21, y=Y*150)        
         self.button1 = ctk.CTkButton(root, text="Genereeri", command=self.on_button1, font=self.nupu_font, **NUPU_KUJUNDUS)
-        self.button1.place(x=X*20, y=Y*177)
-        self.label9 = ctk.CTkLabel(root, text="Juhulslike lotonumbrite genereerimine", text_color="#faf76b", font=ctk.CTkFont(family="Helvetica", size=8), width=X*135, height=Y*20)
+        self.button1.place(x=X*18, y=Y*177)
+        self.label9 = ctk.CTkLabel(root, text="Juhuslike lotonumbrite genereerimine", text_color="#faf76b", font=ctk.CTkFont(family="Helvetica", size=8), width=X*135, height=Y*20)
         self.label9.place(x=X*21, y=Y*220)        
         self.button2 = ctk.CTkButton(root, text="Juhuslik", command=self.on_button2, font=self.nupu_font, **NUPU_KUJUNDUS)
-        self.button2.place(x=X*20, y=Y*247)
+        self.button2.place(x=X*18, y=Y*247)
         self.label10 = ctk.CTkLabel(root, text="Viimaste tulemustega võrdlemine", text_color="#faf76b", font=ctk.CTkFont(family="Helvetica", size=8), width=X*135, height=Y*20)
         self.label10.place(x=X*21, y=Y*290)        
         self.button3 = ctk.CTkButton(root, text="Kontrolli", command=self.on_button3, font=self.nupu_font, **NUPU_KUJUNDUS)
-        self.button3.place(x=X*20, y=Y*317)
+        self.button3.place(x=X*18, y=Y*317)
+        self.label11 = ctk.CTkLabel(root, text='Enim esinenud Vikingi numbrid', text_color='#faf76b', font=ctk.CTkFont(family='Helvetica', size=8), width=X*135, height=Y*20)
+        self.label11.place(x=X*21, y=Y*360)
+        self.button4 = ctk.CTkButton(root, text='Statistika', command=self.on_button4, font=self.nupu_font, **NUPU_KUJUNDUS)
+        self.button4.place(x=X*18, y=Y*387)
 
         """ Teksti sisend """
         self.entry1 = ctk.CTkEntry(root, fg_color=VALGE, text_color=THEME_FG, font=ctk.CTkFont(family=THEME_FONT_FAMILY, size=THEME_FONT_SIZE), corner_radius=3, width=X*54, height=Y*30)
@@ -223,24 +232,65 @@ class Application:
         self.text5.delete(0.0, 'end')
         self.text6.delete(0.0, 'end')
         self.text7.delete(0.0, 'end')
+    
+    def loe_loosimiste_arv(self):
+        '''Loeb loosimiste arvu tühjalt väljalt ja kontrollib seda. Vea korral tagastab None'''
+        try:
+            arv = int(self.entry1.get())
+        except ValueError:
+            messagebox.showinfo('LotoGen', 'Loosimiste väljale tuleb sisestada täisarv!')
+            return None
+        if arv < 1 or arv > MAX_LOOSIMISI:
+            messagebox.showinfo('LotoGen', f'Loosimiste arv peab jääma vahemikku 1 kuni {MAX_LOOSIMISI}!')
+            return None
+        return arv
+    
+    def loe_pilet(self):
+        '''Loeb Vikingi numbrid tekstiväljadelt: (põhinumbrid, lisanumbrid)'''
+        väljad = [self.text1, self.text2, self.text3, self.text4, self.text5, self.text6, self.text7]
+        numbrid = [väli.get('0.0', 'end').strip() for väli in väljad]
+        return numbrid [:6], numbrid[6:]
 
     def on_button1(self):
         """ Loto generaatori nupp """
-        tekst = self.entry1.get()
         """ Kontrollime kas loosimiste arvu väljale sisestati täisarv """
+        arv = self.loe_loosimiste_arv()
+        if arv is None:
+            return
         try:
-            val = int(tekst)
-            tulemused(tekst, self)
-        except:
-            tk.messagebox.showinfo(title=None, message="Loosimiste väljale tuleb sisestada täisarv!")
-        pass
+            tulemused(arv, self)
+        except Exception as viga:
+            messagebox.showerror('LotoGen', f'Numbrite hankimine ebaõnnestus: {viga}')
+            return
+        põhi, lisa = self.loe_pilet()
+        salvesta_pilet('Viking', 'Statistika', põhi, lisa)
     
     def on_button2(self):
         """ Juhusliku kombinatsiooni genereerimise nupp """
-        pass
+        põhi = juhusliku_loterii_generaator(1, 48, 6)
+        lisa = juhusliku_loterii_generaator(1, 5, 1)
+        väljad = [self.text1, self.text2, self.text3, self.text4, self.text5, self.text6, self.text7]
+        self.tühjenda_väljad()
+        for väli, nr in zip(väljad, põhi + lisa):
+            väli.insert('end', str(nr))
+        salvesta_pilet('Viking', 'Juhuslik', põhi, lisa)
+        
 
     def on_button3(self):
         """ Tulemuse võrdlemise nupp viimase lotoga """
         pass
+    
+    def on_button4(self):
+        '''Statistika nupp'''
+        arv = self.loe_loosimiste_arv()
+        if arv is None:
+            return
+        try:
+            tulemus = sagedasemad(arv)
+        except Exception as viga:
+            messagebox.showerror('LotoGen', f'Andmete hankimine ebaõnnestus: {viga}')
+            return
+        read = [f'{nr} - {kord} korda' for nr, kord in tulemus]
+        messagebox.showinfo('Enim esinenud Vikingi numbrid', '\n'.join(read))
 
 

@@ -6,12 +6,12 @@ Lotonumbrite genereerija, sisendandmetena kasutab scraperit ja väljastab tulemu
 
 from jp_scraper import *
 from jp_random import juhusliku_loterii_generaator
-from jp_gui import *
+from collections import Counter
 
 # loosimiste_arv = 1
 
 def enim_esinev_nr(sisend):
-    """ Meetod mis otsib tulemustest einm levinud numbri """
+    """ Meetod mis otsib tulemustest enim levinud numbri """
     max_sagedus = 0
     max_nr = None
     
@@ -28,15 +28,9 @@ def eemalda_element_listist(sisend, element):
         if el == element:
             sisend.remove(el)
             
-def täida_tulemuste_list(list, kogus):
-    """ Käib läbi etteantud numbri loosimisi ja tagastab kõigi nende loosimiste numbrite järjendi """
-    vastus = []
-    number = None
-    for i in range(kogus):
-        number = enim_esinev_nr(list)[0]
-        vastus.append(number)
-        eemalda_element_listist(list, number)
-    return vastus
+def täida_tulemuste_list(sisend, kogus):
+    """ Tagastab 'kogus' enim esinenud erinevat numbrit """
+    return [nr for nr, _ in Counter(sisend).most_common(kogus)]
 
 def tükelda_bingo(sisend):
     """ Meetod mis jaotab BINGO loosimise numbrid veergude kaupa(1-15, 16-30 jne.) """
@@ -74,7 +68,7 @@ def tulemused(loosimiste_arv, app):
     app.text6.delete(0.0, 'end')
     app.text7.delete(0.0, 'end')
     
-    """ Järgnevlat kogume kokku valitud arvu loosimiste numbreid erinevatelt lotodelt: """
+    """ Järgnevalt kogume kokku valitud arvu loosimiste numbreid erinevatelt lotodelt: """
     v_põhi = tulemuste_koguja(loosimiste_arv, viking_id, "põhinumbrid")
     v_lisa = tulemuste_koguja(loosimiste_arv, viking_id, "lisanumbrid")
     e_põhi = tulemuste_koguja(loosimiste_arv, eurojackpot_id, "põhinumbrid")
@@ -101,13 +95,13 @@ def tulemused(loosimiste_arv, app):
     viimane_e_lisa = tulemuste_koguja(1, eurojackpot_id, "lisanumbrid")
     viimane_bingo_alg = tulemuste_koguja(1, bingo_id)
      
-    app.text1.insert(tk.END, viking_põhi[0])
-    app.text2.insert(tk.END, viking_põhi[1])
-    app.text3.insert(tk.END, viking_põhi[2])
-    app.text4.insert(tk.END, viking_põhi[3])
-    app.text5.insert(tk.END, viking_põhi[4])
-    app.text6.insert(tk.END, viking_põhi[5])
-    app.text7.insert(tk.END, viking_lisa[0])
+    app.text1.insert('end', viking_põhi[0])
+    app.text2.insert('end', viking_põhi[1])
+    app.text3.insert('end', viking_põhi[2])
+    app.text4.insert('end', viking_põhi[3])
+    app.text5.insert('end', viking_põhi[4])
+    app.text6.insert('end', viking_põhi[5])
+    app.text7.insert('end', viking_lisa[0])
 
 #print(v_põhi)
 #print(v_lisa)
