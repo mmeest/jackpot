@@ -1,0 +1,4 @@
+customthinker
+pillow
+requests
+Beautyful Soup
