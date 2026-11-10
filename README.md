@@ -67,6 +67,7 @@ kui mitu loosimist hangitakse.
 | Juhusliku lotokombinatsiooni loomine | Kasutades Math.Random | ✓ |
 | Loodud numbrite võrdlemine viimase loosimisega | Õigete numbrite taust muutub roheliseks | ❌ |
 | Kõigi lotonumbrite genereerimisel salvestatakse need ka CSV faili | Faili kirjutamise harjutamiseks | ✓ |
+| Statistika funktsiooni lisamine | Kuvab kasutajale kogutud numbrite statistika | ✓ |
 
 ## Tehnoloogiad
 
