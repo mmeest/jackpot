@@ -14,7 +14,7 @@ Rakendus mis genereerib varasemate loosimiste põhjal Bingo, Vikingi ja Eurojack
 - [Funktsionaalsus](#funktsionaalsus)
 - [Tehnoloogiad](#tehnoloogiad)
 - [Beautiful Soup](#beautiful-soup)
-- [CustomTkinter](customtkinter)
+- [CustomTkinter](#customtkinter)   
 - [Alfaversioon](#alfa)
 - [Beetaversioon](#beeta)
 - [Võimalik edasiarendus](#võimalik-edasiarendus)
