@@ -101,7 +101,7 @@ Thonnyle tuleb paigaldada tööriistad (Tools > Manage packages):
 
 Ning need importida
 
-```
+```python
 from bs4 import BeutyfulSoup
 import requests
 import json   # päringu vastuste tarvis
@@ -117,7 +117,7 @@ Kasutatud materjalid:
 Thonnyle tuleb paigaldada tööriist customtkinter (Tools > Manage packages)
 Ning seejärel see rakendusse importida
 
-```
+```python
 import customtkinter as ctk
 ```
 
