@@ -236,6 +236,7 @@ class Application:
     """
         
     def tühjenda_väljad(self):
+        """ eelnev meetod tsükliga ümberkirjutatult et tühjendada väljad text1 kuni text39 """
         for i in range(1, 40):
             tekstiväli = getattr(self, f"text{i}")
             tekstiväli.delete(0.0, 'end')
