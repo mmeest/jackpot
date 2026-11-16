@@ -1,6 +1,6 @@
 # CustomTkinter:  pip install customtkinter
 import customtkinter as ctk
-import tkinter as tk
+# import tkinter as tk
 # Pillow:  pip install pillow - piltide kasutamiseks
 from PIL import Image
 from jp_generator import *
@@ -224,6 +224,7 @@ class Application:
         self.text39 = ctk.CTkTextbox(self.frame5, fg_color=TUMEHALL, font=self.nupu_font, **B_KUJUNDUS)
         self.text39.place(x=X*165, y=Y*263)
         
+    """      
     def tühjenda_väljad(self):
         self.text1.delete(0.0, 'end')
         self.text2.delete(0.0, 'end')
@@ -232,6 +233,13 @@ class Application:
         self.text5.delete(0.0, 'end')
         self.text6.delete(0.0, 'end')
         self.text7.delete(0.0, 'end')
+    """
+        
+    def tühjenda_väljad(self):
+        """ eelnev meetod tsükliga ümberkirjutatult et tühjendada väljad text1 kuni text39 """
+        for i in range(1, 40):
+            tekstiväli = getattr(self, f"text{i}")
+            tekstiväli.delete(0.0, 'end')
     
     def loe_loosimiste_arv(self):
         '''Loeb loosimiste arvu tühjalt väljalt ja kontrollib seda. Vea korral tagastab None'''
