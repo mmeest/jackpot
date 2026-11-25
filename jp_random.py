@@ -5,6 +5,8 @@ Juhusliku numbrikombinatsiooni genereerimiseks.
 """
 import random
 
+BINGO_VAHEMIKUD = [(1, 15), (16, 30), (31, 45), (46, 60), (61, 75)]
+
 def juhusliku_loterii_generaator(vähim, suurim, kogus):
     """ See meetod loob juhuslikest numbritest etteantud pikkuse ja vahemikuga listi """
     vastus = []
@@ -12,7 +14,7 @@ def juhusliku_loterii_generaator(vähim, suurim, kogus):
         number = random.randint(vähim, suurim)
         if number not in vastus:
             vastus.append(number)
-    return vastus
+    return sorted(vastus)
 
 """ MEETODI TESTIMINE
     
