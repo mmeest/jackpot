@@ -5,8 +5,9 @@ Lotonumbrite genereerija, sisendandmetena kasutab scraperit ja väljastab tulemu
 """
 
 from jp_scraper import *
-from jp_random import juhusliku_loterii_generaator
+from jp_random import juhusliku_loterii_generaator, BINGO_VAHEMIKUD
 from collections import Counter
+from random import randint
 
 # loosimiste_arv = 1
 
@@ -28,9 +29,10 @@ def eemalda_element_listist(sisend, element):
         if el == element:
             sisend.remove(el)
             
-def täida_tulemuste_list(sisend, kogus):
+def täida_tulemuste_list(sisend, kogus, vähim, suurim):
     """ Tagastab 'kogus' enim esinenud erinevat numbrit """
-    return [nr for nr, _ in Counter(sisend).most_common(kogus)]
+    numbrid = [arv for arv, sagedus in Counter(sisend).most_common(kogus)]
+    return täienda(numbrid, kogus, vähim, suurim)
 
 def tükelda_bingo(sisend):
     """ Meetod mis jaotab BINGO loosimise numbrid veergude kaupa(1-15, 16-30 jne.) """
@@ -58,15 +60,15 @@ def tükelda_bingo(sisend):
 #print(enim_esinev_nr(vastus_2))
 
 #print(enim_esinev_nr(tulemuste_koguja(loosimiste_arv, bingo_id)))
+def täienda(numbrid, kogus, vähim, suurim):
+    '''Kui statistikast jääb nt numbreid puudu, siis see lisab samas vahemikus arvu'''
+    while len(numbrid) < kogus:
+        nr = randint(vähim, suurim)
+        if nr not in numbrid:
+            numbrid.append(nr)
+    return numbrid
 
-def tulemused(loosimiste_arv, app):
-    app.text1.delete(0.0, 'end')
-    app.text2.delete(0.0, 'end')
-    app.text3.delete(0.0, 'end')
-    app.text4.delete(0.0, 'end')
-    app.text5.delete(0.0, 'end')
-    app.text6.delete(0.0, 'end')
-    app.text7.delete(0.0, 'end')
+def tulemused(loosimiste_arv):
     
     """ Järgnevalt kogume kokku valitud arvu loosimiste numbreid erinevatelt lotodelt: """
     v_põhi = tulemuste_koguja(loosimiste_arv, viking_id, "põhinumbrid")
@@ -78,18 +80,25 @@ def tulemused(loosimiste_arv, app):
     bingo_read = tükelda_bingo(bingo_alg)
     
     """ Järgnevalt genereerime uue pileti numbrid kõigile lotodele: """
-    viking_põhi = täida_tulemuste_list(v_põhi, 6)
-    viking_lisa = täida_tulemuste_list(v_lisa, 1)
-    euro_põhi = täida_tulemuste_list(e_põhi, 5)
-    euro_lisa = täida_tulemuste_list(e_lisa, 2)
-    bingo_B = täida_tulemuste_list(bingo_read[0], 5)
-    bingo_I = täida_tulemuste_list(bingo_read[1], 5)
-    bingo_N = täida_tulemuste_list(bingo_read[2], 5)
-    bingo_G = täida_tulemuste_list(bingo_read[3], 5)
-    bingo_O = täida_tulemuste_list(bingo_read[4], 5)
+    viking_põhi = täida_tulemuste_list(v_põhi, 6, 1, 48)
+    viking_lisa = täida_tulemuste_list(v_lisa, 1, 1, 5)
+    euro_põhi = täida_tulemuste_list(e_põhi, 5, 1, 50)
+    euro_lisa = täida_tulemuste_list(e_lisa, 2, 1, 12)
+    bingo_B = täida_tulemuste_list(bingo_read[0], 5, 1, 15)
+    bingo_I = täida_tulemuste_list(bingo_read[1], 5, 16, 30)
+    bingo_N = täida_tulemuste_list(bingo_read[2], 5, 31, 45)
+    bingo_G = täida_tulemuste_list(bingo_read[3], 5, 46, 60)
+    bingo_O = täida_tulemuste_list(bingo_read[4], 5, 61, 75)
+    
+    '''Paneme numbrid vastavatesse väljadesse'''
+    viking = viking_põhi + viking_lisa
+    euro = euro_põhi + euro_lisa
+    bingo =  bingo_B + bingo_I + bingo_N + bingo_G + bingo_O
+    
+    return viking, euro, bingo 
     
     """ Järgnevlat talletame viimase loosimise numbrid erinevatelt lotodelt: """
-    viimane_v_põhi = tulemuste_koguja(1, viking_id, "põhinumbrid")
+    '''viimane_v_põhi = tulemuste_koguja(1, viking_id, "põhinumbrid")
     viimane_v_lisa = tulemuste_koguja(1, viking_id, "lisanumbrid")
     viimane_e_põhi = tulemuste_koguja(1, eurojackpot_id, "põhinumbrid")
     viimane_e_lisa = tulemuste_koguja(1, eurojackpot_id, "lisanumbrid")
@@ -101,7 +110,7 @@ def tulemused(loosimiste_arv, app):
     app.text4.insert('end', viking_põhi[3])
     app.text5.insert('end', viking_põhi[4])
     app.text6.insert('end', viking_põhi[5])
-    app.text7.insert('end', viking_lisa[0])
+    app.text7.insert('end', viking_lisa[0])'''
 
 #print(v_põhi)
 #print(v_lisa)

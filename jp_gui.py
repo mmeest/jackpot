@@ -4,10 +4,11 @@ import customtkinter as ctk
 # Pillow:  pip install pillow - piltide kasutamiseks
 from PIL import Image
 from jp_generator import *
-from jp_random import juhusliku_loterii_generaator
+from jp_random import juhusliku_loterii_generaator, BINGO_VAHEMIKUD
 from tkinter import messagebox
 from jp_salvesta import *
 from jp_statistika import *
+import threading
 
 """ konstandid """
 THEME_BG = "#163d6d"
@@ -88,6 +89,12 @@ class Application:
         self.label11.place(x=X*21, y=Y*360)
         self.button4 = ctk.CTkButton(root, text='Statistika', command=self.on_button4, font=self.nupu_font, **NUPU_KUJUNDUS)
         self.button4.place(x=X*18, y=Y*387)
+        
+        '''loading märk'''
+        self.loading = ctk.CTkProgressBar(root, mode='interminate')
+        self.loading.place(x=X*12, y=Y*99)
+        self.loading.configure(width=X*150)
+        self.loading.place_forget()
 
         """ Teksti sisend """
         self.entry1 = ctk.CTkEntry(root, fg_color=VALGE, text_color=THEME_FG, font=ctk.CTkFont(family=THEME_FONT_FAMILY, size=THEME_FONT_SIZE), corner_radius=3, width=X*54, height=Y*30)
@@ -224,22 +231,19 @@ class Application:
         self.text39 = ctk.CTkTextbox(self.frame5, fg_color=TUMEHALL, font=self.nupu_font, **B_KUJUNDUS)
         self.text39.place(x=X*165, y=Y*263)
         
-    """      
-    def tühjenda_väljad(self):
-        self.text1.delete(0.0, 'end')
-        self.text2.delete(0.0, 'end')
-        self.text3.delete(0.0, 'end')
-        self.text4.delete(0.0, 'end')
-        self.text5.delete(0.0, 'end')
-        self.text6.delete(0.0, 'end')
-        self.text7.delete(0.0, 'end')
-    """
+<<<<<<< HEAD
+        #lihtsustan protsessi
         
+        self.viking_väljad = [getattr(self, f'text{i}') for i in range(1, 8)]
+        self.euro_väljad = [getattr(self, f'text{i}') for i in range(8, 15)]
+        self.bingo_väljad = [getattr(self, f'text{i}') for i in range(15, 40)]
+        
+                
     def tühjenda_väljad(self):
-        """ eelnev meetod tsükliga ümberkirjutatult et tühjendada väljad text1 kuni text39 """
-        for i in range(1, 40):
-            tekstiväli = getattr(self, f"text{i}")
-            tekstiväli.delete(0.0, 'end')
+        for väli in self.viking_väljad + self.euro_väljad + self.bingo_väljad:
+            väli.delete(0.0, 'end')
+
+>>>>>>> origin/main
     
     def loe_loosimiste_arv(self):
         '''Loeb loosimiste arvu tühjalt väljalt ja kontrollib seda. Vea korral tagastab None'''
@@ -258,6 +262,17 @@ class Application:
         väljad = [self.text1, self.text2, self.text3, self.text4, self.text5, self.text6, self.text7]
         numbrid = [väli.get('0.0', 'end').strip() for väli in väljad]
         return numbrid [:6], numbrid[6:]
+    
+    def loe_väljad(self, väljad):
+        '''Loeb tekstiväljadest numbrid ja tagastab need'''
+        numbrid = []
+        
+        for väli in väljad:
+            väärtus = väli.get('0.0', 'end').strip()
+            
+            if väärtus:
+                numbrid += [int(väärtus)]
+        return numbrid
 
     def on_button1(self):
         """ Loto generaatori nupp """
@@ -265,23 +280,93 @@ class Application:
         arv = self.loe_loosimiste_arv()
         if arv is None:
             return
+        
+        '''käivitame laadimise'''
+        self.button1.configure(state='disabled')
+        self.loading.place(x=X*18, y=Y*430)
+        self.loading.start()
+        
+        '''käivitame genereerimise'''
+        threading.Thread(target=self.genereeri_taustal, args = (arv,), daemon = True).start()
+    
+    def genereeri_taustal(self, arv):
+        '''Genereerib numbrid taustal'''
         try:
-            tulemused(arv, self)
+            viking, euro, bingo = tulemused(arv)
+            
         except Exception as viga:
-            messagebox.showerror('LotoGen', f'Numbrite hankimine ebaõnnestus: {viga}')
+            self.root.after(0, self.lõpeta_laadimine)
+            self.root.after(0, lambda: messagebox.showerror('LotoGen', f'Numbrite genereerimine ebaõnnestus: {viga}'))
             return
-        põhi, lisa = self.loe_pilet()
-        salvesta_pilet('Viking', 'Statistika', põhi, lisa)
+        
+        self.root.after(0, lambda: self.näita_tulemusi(viking, euro, bingo))
+        
+    def näita_tulemusi(self, viking, euro, bingo):
+        '''Kuvab genereeritud numbrid'''
+        
+        try:
+            self.tühjenda_väljad()
+            for väli, nr in zip(self.viking_väljad, viking):
+                väli.insert('end', str(nr))
+
+            for väli, nr in zip(self.euro_väljad, euro):
+                väli.insert('end', str(nr))
+
+            for väli, nr in zip(self.bingo_väljad, bingo):
+                väli.insert('end', str(nr))
+                
+            salvesta_pilet('Viking', 'Statistika', viking[:6], viking[6:])
+            salvesta_pilet('Eurojackpot', 'Statistika', euro[:5], euro[5:])
+            salvesta_pilet('Bingo', 'Statistika', bingo, [])
+            
+        except Exception as viga:
+            messagebox.showerror('LotoGen', f'Tulemuste kuvamine ebaõnnestus: {viga}')
+        finally:
+            self.lõpeta_laadimine()
+            
+    def genereerimise_viga(self, viga):
+        '''kuvab vea'''
+        messagebox.showerror('LotoGen', f'Numbrite hankimine ebaõnnestus: {viga}')
+        self.lõpeta_laadimine()
+        
+    def lõpeta_laadimine(self):
+        '''lõpetab laadimise'''
+        self.loading.stop()
+        self.loading.place_forget()
+        self.button1.configure(state='normal')
+
     
     def on_button2(self):
         """ Juhusliku kombinatsiooni genereerimise nupp """
+        #Viking
         põhi = juhusliku_loterii_generaator(1, 48, 6)
         lisa = juhusliku_loterii_generaator(1, 5, 1)
-        väljad = [self.text1, self.text2, self.text3, self.text4, self.text5, self.text6, self.text7]
+        
+        #Eurojackpot
+        euro_põhi = juhusliku_loterii_generaator(1, 50, 5)
+        euro_lisa = juhusliku_loterii_generaator(1, 12, 2)
+        
+        #Bingo
+        bingo_B = juhusliku_loterii_generaator(1, 15, 5)
+        bingo_I = juhusliku_loterii_generaator(16, 30, 5)
+        bingo_N = juhusliku_loterii_generaator(31, 45, 5)
+        bingo_G = juhusliku_loterii_generaator(46, 60, 5)
+        bingo_O = juhusliku_loterii_generaator(61, 75, 5)
+        bingo = bingo_B + bingo_I + bingo_N + bingo_G + bingo_O
+        
+        #kustutame vanad numbrid ja paneme uued
         self.tühjenda_väljad()
-        for väli, nr in zip(väljad, põhi + lisa):
+        for väli, nr in zip(self.viking_väljad, põhi + lisa):
             väli.insert('end', str(nr))
         salvesta_pilet('Viking', 'Juhuslik', põhi, lisa)
+        
+        for väli, nr in zip(self.euro_väljad, euro_põhi + euro_lisa):
+            väli.insert('end', str(nr))
+        salvesta_pilet('Eurojackpot', 'Juhuslik', euro_põhi, euro_lisa)
+        
+        for väli, nr in zip(self.bingo_väljad, bingo):
+            väli.insert('end', str(nr))
+        salvesta_pilet('Bingo', 'Juhuslik', bingo, [])
         
 
     def on_button3(self):
