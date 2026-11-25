@@ -1,6 +1,6 @@
 # CustomTkinter:  pip install customtkinter
 import customtkinter as ctk
-import tkinter as tk
+# import tkinter as tk
 # Pillow:  pip install pillow - piltide kasutamiseks
 from PIL import Image
 from jp_generator import *
@@ -231,6 +231,7 @@ class Application:
         self.text39 = ctk.CTkTextbox(self.frame5, fg_color=TUMEHALL, font=self.nupu_font, **B_KUJUNDUS)
         self.text39.place(x=X*165, y=Y*263)
         
+<<<<<<< HEAD
         #lihtsustan protsessi
         
         self.viking_väljad = [getattr(self, f'text{i}') for i in range(1, 8)]
@@ -241,6 +242,8 @@ class Application:
     def tühjenda_väljad(self):
         for väli in self.viking_väljad + self.euro_väljad + self.bingo_väljad:
             väli.delete(0.0, 'end')
+
+>>>>>>> origin/main
     
     def loe_loosimiste_arv(self):
         '''Loeb loosimiste arvu tühjalt väljalt ja kontrollib seda. Vea korral tagastab None'''

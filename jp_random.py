@@ -2,6 +2,10 @@
 
 Juhusliku numbrikombinatsiooni genereerimiseks.
 
+NB! Miks antud rakenduse failinimede alguses on jp_?
+Põhjus on selles, et näiteks antud random abivahendi
+importimine ei läheks segi Pythoni randomiga.
+
 """
 import random
 
