@@ -8,6 +8,7 @@ from jp_random import juhusliku_loterii_generaator, BINGO_VAHEMIKUD
 from tkinter import messagebox
 from jp_salvesta import *
 from jp_statistika import *
+from jp_pdf_export import ekspordi_pdf
 import threading
 
 """ konstandid """
@@ -89,6 +90,10 @@ class Application:
         self.label11.place(x=X*21, y=Y*360)
         self.button4 = ctk.CTkButton(root, text='Statistika', command=self.on_button4, font=self.nupu_font, **NUPU_KUJUNDUS)
         self.button4.place(x=X*18, y=Y*387)
+        self.label12 = ctk.CTkLabel(root, text='Ekspordi numbrid PDF faili', text_color='#faf76b', font=ctk.CTkFont(family='Helvetica', size=8), width=X*135, height=Y*20)
+        self.label12.place(x=X*21, y=Y*430)
+        self.button5 = ctk.CTkButton(root, text='PDF Eksport', command=self.on_button5, font=self.nupu_font, **NUPU_KUJUNDUS)
+        self.button5.place(x=X*18, y=Y*457)
         
         '''loading märk'''
         self.loading = ctk.CTkProgressBar(root, mode='interminate')
@@ -231,7 +236,6 @@ class Application:
         self.text39 = ctk.CTkTextbox(self.frame5, fg_color=TUMEHALL, font=self.nupu_font, **B_KUJUNDUS)
         self.text39.place(x=X*165, y=Y*263)
         
-<<<<<<< HEAD
         #lihtsustan protsessi
         
         self.viking_väljad = [getattr(self, f'text{i}') for i in range(1, 8)]
@@ -242,8 +246,6 @@ class Application:
     def tühjenda_väljad(self):
         for väli in self.viking_väljad + self.euro_väljad + self.bingo_väljad:
             väli.delete(0.0, 'end')
-
->>>>>>> origin/main
     
     def loe_loosimiste_arv(self):
         '''Loeb loosimiste arvu tühjalt väljalt ja kontrollib seda. Vea korral tagastab None'''
@@ -263,6 +265,9 @@ class Application:
         numbrid = [väli.get('0.0', 'end').strip() for väli in väljad]
         return numbrid [:6], numbrid[6:]
     
+    def loe_tekstid(self, väljad):
+        return [väli.get('0.0', 'end').strip() for väli in väljad]
+
     def loe_väljad(self, väljad):
         '''Loeb tekstiväljadest numbrid ja tagastab need'''
         numbrid = []
@@ -283,7 +288,7 @@ class Application:
         
         '''käivitame laadimise'''
         self.button1.configure(state='disabled')
-        self.loading.place(x=X*18, y=Y*430)
+        self.loading.place(x=X*18, y=Y*500)
         self.loading.start()
         
         '''käivitame genereerimise'''
@@ -385,5 +390,19 @@ class Application:
             return
         read = [f'{nr} - {kord} korda' for nr, kord in tulemus]
         messagebox.showinfo('Enim esinenud Vikingi numbrid', '\n'.join(read))
-
+        
+    def on_button5(self):
+        try:
+            fail = ekspordi_pdf(
+                self.loe_tekstid(self.viking_väljad[:6]),
+                self.loe_tekstid(self.viking_väljad[6:]),
+                self.loe_tekstid(self.euro_väljad[:5]),
+                self.loe_tekstid(self.euro_väljad[5:]),
+                self.loe_tekstid(self.bingo_väljad),
+                hangi_sagedused(),
+            )
+        except Exception as viga:
+            messagebox.showerror('LotoGen', f'PDF eksport ebaõnnestus: {viga}')
+            return
+        messagebox.showinfo('LotoGen', f'PDF salvestati:\n{fail}')
 
