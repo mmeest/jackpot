@@ -52,6 +52,7 @@ kui mitu loosimist hangitakse.
 | jp_scraper.py | Eesti Loto lehelt varasemate loosimiste hankimiseks |
 | jp_generator.py | Genereerib loto piletite numbrid |
 | jp_random.py | Juhusliku pileti genereerimiseks |
+| jp_pdf_export.py | Ekspordib lotonumbrid rakendusest PDF-formaati |
 | /pic | Kataloog projektis kasutatavate piltide jaoks |
 
 ## Funktsionaalsus
@@ -63,11 +64,12 @@ kui mitu loosimist hangitakse.
 | Enimlevinud numbrite põhjal uute lotonumbrite loomine | Listid käiakse tsükliga läbi | ✓ |
 | Kasutajaliidese loomine | Kasutusel Tkinter ja Custom Tkinter | ✓ |
 | Vikingloto piletite loomine | Alfa versiooni nõue | ✓ |
-| Eurojackpoti ja Bingo piletite loomine | Beeta versiooni nõue | ❌ |
+| Eurojackpoti ja Bingo piletite loomine | Beeta versiooni nõue | ✓ |
 | Juhusliku lotokombinatsiooni loomine | Kasutades Math.Random | ✓ |
 | Loodud numbrite võrdlemine viimase loosimisega | Õigete numbrite taust muutub roheliseks | ❌ |
 | Kõigi lotonumbrite genereerimisel salvestatakse need ka CSV faili | Faili kirjutamise harjutamiseks | ✓ |
 | Statistika funktsiooni lisamine | Kuvab kasutajale kogutud numbrite statistika | ✓ |
+| PDF Eksport | Loome võidunumbritest ja numbristatistikast PDF-faili | ✓ |
 
 ## Tehnoloogiad
 
@@ -98,6 +100,7 @@ Thonnyle tuleb paigaldada tööriistad (Tools > Manage packages):
 
 * beautifulsoup4
 * requests
+* reportlab
 
 Ning need importida
 
@@ -182,3 +185,6 @@ Beeta versioon on täiendatud ka Bingo ja Eurojackpot loteriidega.
 * Lisati kood, et genereeritud tulemused lisataks CSV faili (vajadusel luuakse fail), kus on välja toodud täpne kellaaeg ja kuupäev, pileti liik ja loositud numbrid tabelina
 * Piirati loosimiste arv, et programm liiga mahukaks ei läheks
 * Aktiveeriti järgmine nupp, mis genereerib Vikingu piletile suvalised arvud
+* EuroJackpoti ja Bingo numbrite kogumine ja nende põhjal uute genereerimine lisatud
+* Numbrite kogumisele on lisatud ka loading-animatsioon
+* Lisatud nupp 'PDF Eksport', mis loob võidunumbritest PDF-formaadis dokumendi. Sellele lisatakse ka numbrite sagedust kuvav graafik
