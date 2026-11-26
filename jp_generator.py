@@ -60,6 +60,19 @@ def tükelda_bingo(sisend):
 #print(enim_esinev_nr(vastus_2))
 
 #print(enim_esinev_nr(tulemuste_koguja(loosimiste_arv, bingo_id)))
+_sagedused = None
+
+def hangi_sagedused():
+    return _sagedused
+
+def _jäta_sagedused_meelde(*nimekirjad):
+    global _sagedused
+    loendur = Counter()
+    for nimekiri in nimekirjad:
+        for nr in nimekiri:
+            loendur[int(nr)] += 1
+    _sagedused = [loendur.get(n, 0) for n in range(1, 76)]
+
 def täienda(numbrid, kogus, vähim, suurim):
     '''Kui statistikast jääb nt numbreid puudu, siis see lisab samas vahemikus arvu'''
     while len(numbrid) < kogus:
@@ -76,6 +89,7 @@ def tulemused(loosimiste_arv):
     e_põhi = tulemuste_koguja(loosimiste_arv, eurojackpot_id, "põhinumbrid")
     e_lisa = tulemuste_koguja(loosimiste_arv, eurojackpot_id, "lisanumbrid")
     bingo_alg = tulemuste_koguja(loosimiste_arv, bingo_id)
+    _jäta_sagedused_meelde(v_põhi, v_lisa, e_põhi, e_lisa, bingo_alg)
 
     bingo_read = tükelda_bingo(bingo_alg)
     

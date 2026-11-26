@@ -2,3 +2,4 @@ customthinker
 pillow
 requests
 Beautyful Soup
+reportlab
